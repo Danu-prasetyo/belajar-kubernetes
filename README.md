@@ -1,4 +1,5 @@
 **DISCLAIMER! DOKUMENTASI BELAJAR PRIDADI. DIBUAT TIDAK UNTUK UMUM! **
+
 🌱 **Step 1: Paham Dasar Kubernetes**
 
 ✅ **Apa itu Kubernetes?** → Sistem buat **orchestrate & manage container** seperti Docker.  
@@ -72,6 +73,7 @@
 ```
 
 - **Check version**
+
 ```
   kubectl version --client
 ```
@@ -119,43 +121,45 @@ Pod adalah unit terkecil di kubernetes yang didalamnya bisa terdapat lebih dari 
 ```
 
 - **BASIC COMMAND POD**
+
   - membuat resource di kubernetes
 
-	```
-	kubectl apply -f <file_name>
-	```
+  ```
+  kubectl apply -f <file_name>
+  ```
 
-    - melihat semua pod
+  - melihat semua pod
 
-	```
-	kubectl get pod
-	```
+  ```
+  kubectl get pod
+  ```
 
-    - melihat detail pod
+  - melihat detail pod
 
-	```
-	kubectl describe pod <pod_name>
-	```
+  ```
+  kubectl describe pod <pod_name>
+  ```
 
-    - melakukan port forward dari pod
+  - melakukan port forward dari pod
 
-	```
-	kubectl port-forward  pod/<pod_name> <port_local:port_pod>`
-	```
+  ```
+  kubectl port-forward  pod/<pod_name> <port_local:port_pod>`
+  ```
 
 ✅ **Kubectl exec**
 command ini berguna untuk mengeksekusi perintah didalam shel kubernetes
+
 - single container
 
-	```
-	kubectl exec -it <pod_name> -- /bin/sh
-	```
+  ```
+  kubectl exec -it <pod_name> -- /bin/sh
+  ```
 
 - spesific container
 
-	```
-	kubectl exec -it <pod_name> -c <container_name> -- /bin/sh
-	```
+  ```
+  kubectl exec -it <pod_name> -c <container_name> -- /bin/sh
+  ```
 
 ✅ **NODE**
 
@@ -166,23 +170,24 @@ command ini berguna untuk mengeksekusi perintah didalam shel kubernetes
 - Setiap node akan punya kubelet, kube-proxy, dan container runtime
 
 - **COMMAND NODE**
+
   - melihat semua node
 
-	```
-	kubectl get node
-	```
+  ```
+  kubectl get node
+  ```
 
-    atau:
+  atau:
 
-	```
-	kubectl get node -o wide
-	```
+  ```
+  kubectl get node -o wide
+  ```
 
 - melihat detail node
 
-	```
-	kubectl describe node
-	```
+  ```
+  kubectl describe node
+  ```
 
 ✅ **Namespace**
 
@@ -192,28 +197,30 @@ command ini berguna untuk mengeksekusi perintah didalam shel kubernetes
 - jika kita membuat namepace tanpa mendefinisikan namanya, maka akan ditaruh di namespace default
 
 - **COMMAND**
-	- membuat namespace secara langsung
-	```
-	kubectl create namespace <namespace_name>
-	```
 
-    - melihat semua namespace
+  - membuat namespace secara langsung
 
-	```
-	kubectl get ns
-	```
+  ```
+  kubectl create namespace <namespace_name>
+  ```
 
-    atau
+  - melihat semua namespace
 
-	```
-	kubectl get namespace
-	```
+  ```
+  kubectl get ns
+  ```
 
-    - berpindah namespace
+  atau
 
-	```
-	kubectl config set-context --current --namespace <namspace_name>
-	```
+  ```
+  kubectl get namespace
+  ```
+
+  - berpindah namespace
+
+  ```
+  kubectl config set-context --current --namespace <namspace_name>
+  ```
 
 - **Illustrasi** - Node-1:server_test_aplikasi - Namespace: Backend - pod-1 - pod-2 - Namespace: Frontend - pod 1
   ✅ **Label**
@@ -222,7 +229,7 @@ command ini berguna untuk mengeksekusi perintah didalam shel kubernetes
 
 - **COMMAND**
   - mencari pod berdasarkan label
-  `kubecl get pod -l key(misal: version:2.1.1)`
+    `kubecl get pod -l key(misal: version:2.1.1)`
 
 ```
 	kubecl get pod -l version:1.0.0
@@ -235,15 +242,16 @@ command ini berguna untuk mengeksekusi perintah didalam shel kubernetes
 - anotasi biasanya dipake buat informasi metadata
 
 - **COMMAND**
+
   - melihat anotasi pada resource
 
-	```
-	kubectl describe pod <pod_name>
-	```
+  ```
+  kubectl describe pod <pod_name>
+  ```
 
-	```
-	kubectl describe node <node_name>
-	```
+  ```
+  kubectl describe node <node_name>
+  ```
 
 ✅**Menghapus Resource**
 
@@ -251,27 +259,28 @@ command ini berguna untuk mengeksekusi perintah didalam shel kubernetes
 - TAPI secara best practice dianjurkan menghapus resource menggunakan file .yaml resource tersebut
 
 - **COMMAND**
+
   - melihat semua resource
 
-	```
-	kubectl get all
-	```
+  ```
+  kubectl get all
+  ```
 
-    - menghapus resource secara langsung
+  - menghapus resource secara langsung
 
-	```
-	kubectl delete pod <pod_name>
-	```
+  ```
+  kubectl delete pod <pod_name>
+  ```
 
-	```
-	kubectl delete namespace <ns_name>
-	```
+  ```
+  kubectl delete namespace <ns_name>
+  ```
 
-    - mengahpus menggunakan file .yaml (BEST PRACTICE)
+  - mengahpus menggunakan file .yaml (BEST PRACTICE)
 
-	```
-	kubectl delete -f <file_name>
-	```
+  ```
+  kubectl delete -f <file_name>
+  ```
 
 ✅**ReplicaSet**
 
@@ -286,17 +295,18 @@ command ini berguna untuk mengeksekusi perintah didalam shel kubernetes
   - Pod template ➡️ untuk konfigurasi pod
 
 - **COMMAND**
+
   - melihat semua replica
 
-	```
-	kubectl get rs atau kubectl get replicasets
-	```
+  ```
+  kubectl get rs atau kubectl get replicasets
+  ```
 
-    - melihat detail replicatsets
+  - melihat detail replicatsets
 
-	```
-	kubectl describe replicasets <name>
-	```
+  ```
+  kubectl describe replicasets <name>
+  ```
 
 - **File YAML**
 
