@@ -15,6 +15,7 @@
 🚀 **Step 2: Install Kubernetes (Minikube) di Windows**
 
 - **Install Minikube 1.33.1 (local Kubernetes)**
+  Buat direktori minikube terleih dahulu di `C:/minikube`. lalu jalankan perintah berikut di powershell:
 
 ```
 	Invoke-WebRequest -OutFile 'c:\minikube\minikube.exe' -Uri 'https://github.com/kubernetes/minikube/releases/download/v1.33.1/minikube-windows-amd64.exe' -UseBasicParsing
