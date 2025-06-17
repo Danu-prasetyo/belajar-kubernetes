@@ -224,6 +224,21 @@ command ini berguna untuk mengeksekusi perintah didalam shel kubernetes
   kubectl config set-context --current --namespace <namspace_name>
   ```
 
+- melihat daftar pods yang berjalan di semua namespace
+  ```
+  kubectl get pod <nama_pod> --all-namespaces
+  ```
+  
+  - melihat daftar pods yang berjalan di suatu namespace
+  ```
+  kubectl get pod <nama_pod> -n <nama_namespace>
+  ```
+
+  - melihat detail pod yang berjalan di suatu namespace
+  ```
+  kubectl describe pod <nama_pod> -n <nama_namespace>
+  ```
+
 - **Illustrasi** - Node-1:server_test_aplikasi - Namespace: Backend - pod-1 - pod-2 - Namespace: Frontend - pod 1
   ✅ **Label**
 - digunakan untuk melabeli atau menandai sebuah resoirce seperti node, pod, namespace dan lain-lain
