@@ -81,7 +81,7 @@
 🚀 **Step 4: Mastering Kubernetes**
 
 ✅ POD (Create pod)
-Pod adalah unit terkecil di kubernetes yang didalamnya bisa terdapat lebih dari 1 container. setiap pod akan puna satu IP address.
+Pod adalah unit terkecil di kubernetes yang didalamnya bisa terdapat lebih dari 1 container. setiap pod akan punya satu IP address.
 
 - **Buat file yaml (namaFile.yaml)**
   contoh :
@@ -285,7 +285,7 @@ command ini berguna untuk mengeksekusi perintah didalam shel kubernetes
 ✅**ReplicaSet**
 
 - replicaSet biasa digunakan untuk melakukan manajemen banyak pod
-- replicaSet memastikan jumlah pod sesuai dengan jumlah yang ditentukan
+- replicaSet memastikan jumlah pod sesuai dengan jumlah resource yang ditentukan
 - jika ada pod yang dihapus manual atau tidak sengaja, replicaSet akan membuat lagi pod tersebut secara otomatis berdasarkan jumlah yang ditentukan
 - atau jika salah satu node sedang down, maka pod akan dibuat ulang di node lain
 - Elemen yang ada di replicaSet
@@ -313,56 +313,58 @@ command ini berguna untuk mengeksekusi perintah didalam shel kubernetes
 ```
 	apiVersion: apps/v1
 
-	kind: ReplicaSet
+kind: ReplicaSet # kind: ReplicaSet - Jenis sumber daya yang didefinisikan, dalam hal ini ReplicaSet
 
-	metadata:
+metadata:
 
-	  name: myreplicaset-nginx
+  name: myreplicaset-nginx
 
-	  labels:
+  labels:
 
-	    app: myreplicaset-nginx
+    app: myreplicaset-nginx
 
-	spec:
+spec: # spec 1: Spesifikasi yang mendefinisikan konfigurasi ReplicaSet
 
-	  replicas: 3
+  replicas: 3 # replicas: Jumlah replika yang diinginkan untuk ReplicaSet ini
 
-	  selector:
+  selector: # selector: Selector yang digunakan untuk memilih pod/node yang mau dimanage oleh ReplicaSet
 
-	    matchLabels:
+    matchLabels: # matchLabels: Label yang digunakan untuk mencocokkan Pod yang akan dikelola oleh ReplicaSet
 
-	      app: myreplicaset-nginx
+      app: myreplicaset-nginx
 
-	  template:
+  template: # template: Template yang digunakan untuk membuat Pod baru
 
-	    metadata:
+    metadata:
 
-	      name: myreplicaset-nginx
+      name: myreplicaset-nginx
 
-	      labels:
+      labels:
 
-	        app: myreplicaset-nginx
+        app: myreplicaset-nginx
 
-	    spec:
+    spec: # spec 2: Spesifikasi yang mendefinisikan konfigurasi Pod yang akan dibuat oleh ReplicaSet
 
-	      - name: aplikasi-nginx
+      containers: # containers: Daftar kontainer yang akan dijalankan dalam Pod(bisa lebih dari satu contaienr)
 
-	        image: nginx:alpine
+        - name: aplikasi-nginx
 
-	        resources:
+          image: nginx:alpine
 
-	        limits:
+          resources:
 
-	          memory: "10Mi"
+            limits:
 
-	          cpu: "10m"
+              memory: "128Mi"
 
-	        ports:
+              cpu: "500m"
 
-	          - containerPort: 80
+          ports:
+
+            - containerPort: 80
 ```
 
-✅ **Deployment** - Deployment bisa mengtaur replicaset secara otomatis jika kita melakukan update atau rollback versi aplikasi - By default deployment akan menggunaka metode rolling update agar aplikasi tidak mengalami downtime - daripada harus menghapus replicaset dan menjalankan kembali, lebih baik pake deployment untuk mengabstraksi replicaset
+✅ **Deployment** - Deployment bisa mengatur replicaset secara otomatis jika kita melakukan update atau rollback versi aplikasi - By default deployment akan menggunaka metode rolling update agar aplikasi tidak mengalami downtime - daripada harus menghapus replicaset dan menjalankan kembali, lebih baik pake deployment untuk mengabstraksi replicaset
 
 - Ilustrasi
   - deployment akan membuat pod dengan versi ter-update
@@ -370,6 +372,67 @@ command ini berguna untuk mengeksekusi perintah didalam shel kubernetes
   - ketika pod dengan versi ter-update berhasil dibuat, maka pod versi yang lama akan dibuang
   - ![[Pasted_image_20250525005419.png]](images/Pasted_image_20250525005419.png)
   - ![[Pasted_image_20250525005952.png]](images/Pasted_image_20250525005952.png)
+
+📝 **File deployment.yaml**
+```
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+
+  name: deploy-aplikasi-nginx
+
+spec:
+
+  revisionHistoryLimit: 10
+
+  selector:
+
+    matchLabels:
+
+      app: deploy-aplikasi-nginx
+
+  template:
+
+    metadata:
+
+      labels:
+
+        app: deploy-aplikasi-nginx
+
+    spec:
+
+      containers:
+
+        - name: deploy-aplikasi-nginx
+
+          image: nginx:1.22
+
+          resources:
+
+            limits:
+
+              memory: "16Mi"
+
+              cpu: "16m"
+
+          ports:
+
+            - containerPort: 80
+
+          env: # Environment variables
+
+            - name: DB_PORT
+
+              value: "5432"
+
+            - name: DB_USERNAME
+
+              value: "danu"
+
+```
+
 
 ✅**SERVICE**
 
