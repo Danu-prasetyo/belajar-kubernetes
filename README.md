@@ -16,6 +16,8 @@
 
 - **Install Minikube 1.33.1 (local Kubernetes)**
 
+  Buat direktori minikube terleih dahulu di `C:/minikube`. lalu jalankan perintah berikut di powershell:
+
 ```
 	Invoke-WebRequest -OutFile 'c:\minikube\minikube.exe' -Uri 'https://github.com/kubernetes/minikube/releases/download/v1.33.1/minikube-windows-amd64.exe' -UseBasicParsing
 ```
@@ -220,6 +222,21 @@ command ini berguna untuk mengeksekusi perintah didalam shel kubernetes
 
   ```
   kubectl config set-context --current --namespace <namspace_name>
+  ```
+
+- melihat daftar pods yang berjalan di semua namespace
+  ```
+  kubectl get pod <nama_pod> --all-namespaces
+  ```
+  
+  - melihat daftar pods yang berjalan di suatu namespace
+  ```
+  kubectl get pod <nama_pod> -n <nama_namespace>
+  ```
+
+  - melihat detail pod yang berjalan di suatu namespace
+  ```
+  kubectl describe pod <nama_pod> -n <nama_namespace>
   ```
 
 - **Illustrasi** - Node-1:server_test_aplikasi - Namespace: Backend - pod-1 - pod-2 - Namespace: Frontend - pod 1
